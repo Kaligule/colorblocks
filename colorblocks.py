@@ -32,14 +32,14 @@ class canvas():
     def __exit__(self, type, value, traceback):
         subprocess.call('tput reset'.split())
 
-def distribute(min, max, total, current=0):
+def distribute(min, max, total):
     """
     generate a list of numbers between `min` and `max` that adds up to `total`
     """
-    if total - current < max:
-        return [total - current]
+    if total < max:
+        return [total]
     block = random.choice(range(min, max+1))
-    return [block] + distribute(min, max, total, current+block)
+    return [block] + distribute(min, max, total-block)
 
 if __name__ == '__main__':
     args = {k[2:]:v for k,v in docopt(__doc__).items()}
